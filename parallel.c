@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // PARALLEL CODE (OpenMP)
+=======
+// PARALLEL CODE
+>>>>>>> ceb2c9449702a767ffb592c5e5306adb699ec2aa
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -32,8 +36,19 @@ int main() {
     char buffer[1024];
     int row = 0, col = 0, data_count = 0;
 
+<<<<<<< HEAD
     printf("\n%-10s %-10s %-10s %-15s %-10s %-10s %-10s\n", 
            "Row", "Mean", "Median", "Variance", "Stddev", "Range", "Pearson");
+=======
+    // Print the table header
+    printf("\n%-10s %-10s %-10s %-15s %-10s %-10s %-10s\n", 
+           "Row", "Mean", "Median", "Variance", "Stddev", "Range", "Pearson");
+
+    // Reading the CSV file line by line
+    while (fgets(buffer, 1024, file)) {
+        col = 0;
+        row++;
+>>>>>>> ceb2c9449702a767ffb592c5e5306adb699ec2aa
 
     #pragma omp parallel private(buffer, col)  // Parallelize loop over rows
     {
@@ -41,6 +56,7 @@ int main() {
             col = 0;
             row++;
 
+<<<<<<< HEAD
             if (row == 1) continue;
 
             char *field = strtok(buffer, ",");
@@ -52,6 +68,15 @@ int main() {
                 }
                 field = strtok(NULL, ",");
                 col++;
+=======
+        char *field = strtok(buffer, ",");
+        double row_data[11];  // To store all numeric fields for this row
+
+        // Parse the required fields
+        while (field) {
+            if (col >= 1 && col <= 11) {  // We're interested in columns 1-11
+                row_data[col-1] = atof(field);
+>>>>>>> ceb2c9449702a767ffb592c5e5306adb699ec2aa
             }
 
             double mean, median, variance, stddev, range, pearson;
@@ -83,6 +108,23 @@ int main() {
 
             data_count++;
         }
+<<<<<<< HEAD
+=======
+
+        // Calculate statistics for this row
+        double mean = calculate_mean(row_data, 11);
+        double median = calculate_median(row_data, 11);
+        double variance = calculate_variance(row_data, 11, mean);
+        double stddev = calculate_standard_deviation(variance);
+        double range = calculate_range(row_data, 11);
+        double pearson = calculate_pearson(row_data, &row_data[1], 10);  // Correlation between confirmed and deaths
+
+        // Print the results for this row
+        printf("%-10d %-10.2f %-10.2f %-15.2f %-10.2f %-10.2f %-10.2f\n", 
+               row - 1, mean, median, variance, stddev, range, pearson);
+
+        data_count++;
+>>>>>>> ceb2c9449702a767ffb592c5e5306adb699ec2aa
     }
 
     fclose(file);
@@ -94,6 +136,13 @@ int main() {
     return 0;
 }
 
+<<<<<<< HEAD
+=======
+// Function implementations remain the same as in the original code
+// ...
+
+// Function to calculate the mean
+>>>>>>> ceb2c9449702a767ffb592c5e5306adb699ec2aa
 double calculate_mean(double data[], int size) {
     double sum = 0.0;
 
