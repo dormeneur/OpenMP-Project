@@ -76,7 +76,7 @@ int main() {
 
     end = clock();
     cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-    printf("Program Execution Time: %f seconds\n", cpu_time_used);
+    printf("Program Execution Time [parallel]: %f seconds\n", cpu_time_used);
 
     return 0;
 }
