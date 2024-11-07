@@ -29,7 +29,8 @@ double calculate_mean(double data[], int size) {
 double calculate_variance(double data[], int size, double mean) {
     double sum = 0.0;
     for (int i = 0; i < size; i++) {
-        sum += (data[i] - mean) * (data[i] - mean);
+        double diff = data[i] - mean;
+        sum += diff * diff;
     }
     return sum / size;
 }
@@ -38,12 +39,7 @@ double calculate_median(double data[], int size) {
     double* temp = malloc(size * sizeof(double));
     memcpy(temp, data, size * sizeof(double));
     sort(temp, size);
-    double median;
-    if (size % 2 == 0) {
-        median = (temp[size / 2 - 1] + temp[size / 2]) / 2.0;
-    } else {
-        median = temp[size / 2];
-    }
+    double median = (size % 2 == 0) ? (temp[size/2 - 1] + temp[size/2]) / 2.0 : temp[size/2];
     free(temp);
     return median;
 }
